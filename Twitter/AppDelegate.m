@@ -7,13 +7,20 @@
 //
 
 #import "AppDelegate.h"
+#import "LoginViewController.h"
+#import "AFNetworkActivityLogger.h"
+#import "TwitterAPIClient.h"
 
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    [[AFNetworkActivityLogger sharedLogger] startLogging];
+    
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    // Override point for customization after application launch.
+
+    self.window.rootViewController = [[LoginViewController alloc] init];
+    
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     return YES;
@@ -44,6 +51,19 @@
 - (void)applicationWillTerminate:(UIApplication *)application
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+- (BOOL)application:(UIApplication *)application
+            openURL:(NSURL *)url
+  sourceApplication:(NSString *)sourceApplication
+         annotation:(id)annotation
+{
+    if ([url.scheme isEqualToString:@"lytwitter"] && [url.host isEqualToString:@"oauth"]) {
+        [[TwitterAPIClient sharedInstance] applicationDidOpenOAuthURL:url];
+        return YES;
+    } else {
+        return NO;
+    }
 }
 
 @end
