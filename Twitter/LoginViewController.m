@@ -13,6 +13,8 @@
 
 @interface LoginViewController ()
 
+@property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
+
 @end
 
 @implementation LoginViewController
@@ -29,7 +31,13 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
+    
+    [self.collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"BirdCell"];
+
+    TwitterAPIClient *client = [TwitterAPIClient sharedInstanceWithAPIKey:@"TNRrE4CYkbhgxz9IfkVA" APISecret:@"u6aeBBNQddDQwzjwfqgZudwk6eXXdITgzODBsqn124" callbackURL:@"lytwitter://oauth"];
+    if ([client isAuthorized]) {
+        [self getCurrentUserAndShowTweetsVC];
+    }
 }
 
 - (void)didReceiveMemoryWarning
@@ -39,14 +47,16 @@
 }
 
 - (IBAction)onLoginButtonTap:(id)sender {
-    TwitterAPIClient *client = [TwitterAPIClient sharedInstanceWithAPIKey:@"TNRrE4CYkbhgxz9IfkVA" APISecret:@"u6aeBBNQddDQwzjwfqgZudwk6eXXdITgzODBsqn124" callbackURL:@"lytwitter://oauth"];
-    [client loginWithSuccess:^{
-        [client currentUserWithSuccess:^(User *currentUser) {
-            [self showTweetsVC];
-        } failure:^(NSError *error) {
-            NSLog(@"Error getting current user: %@", [error localizedDescription]);
-        }];
-        
+    [[TwitterAPIClient sharedInstance] loginWithSuccess:^{
+        [self getCurrentUserAndShowTweetsVC];
+    }];
+}
+
+- (void)getCurrentUserAndShowTweetsVC {
+    [[TwitterAPIClient sharedInstance] currentUserWithSuccess:^(User *currentUser) {
+        [self showTweetsVC];
+    } failure:^(NSError *error) {
+        NSLog(@"Error getting current user: %@", [error localizedDescription]);
     }];
 }
 
@@ -54,6 +64,25 @@
     TweetsViewController *vc = [[TweetsViewController alloc] init];
     UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:vc];
     [self presentViewController:nc animated:YES completion:nil];
+}
+
+#pragma mark - UICollectionViewDataSource
+
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+    return 100;
+}
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+    static NSArray *images = nil;
+    if (images == nil) {
+        images = @[@"bird_black_48_0", @"bird_blue_48", @"bird_gray_48"];
+    }
+    UICollectionViewCell *cell = [self.collectionView dequeueReusableCellWithReuseIdentifier:@"BirdCell" forIndexPath:indexPath];
+    if (cell.contentView.subviews.count == 0) {
+        UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:images[indexPath.row % 3]]];
+        [cell.contentView addSubview:imageView];
+    }
+    return cell;
 }
 
 @end

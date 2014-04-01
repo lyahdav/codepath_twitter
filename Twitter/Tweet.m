@@ -24,13 +24,45 @@
 - (instancetype)initWithDictionary:(NSDictionary *)dictionary {
     self = [super init];
     if (self) {
+        self.tweetID = [dictionary[@"id"] longValue];
         self.text = dictionary[@"text"];
         self.userProfileImageURL = dictionary[@"user"][@"profile_image_url"];
         self.userName = dictionary[@"user"][@"name"];
-        self.createdAt = dictionary[@"created_at"]; // TODO convert string to date?
+        self.userScreenName = dictionary[@"user"][@"screen_name"];
+        self.createdAt = [self dateFromTwitterString:dictionary[@"created_at"]];
+        self.retweetCount = [dictionary[@"retweet_count"] integerValue];
+        self.favoriteCount = [dictionary[@"favorite_count"] integerValue];
+        _isFavorite = [dictionary[@"favorited"] boolValue];
+        _isRetweeted = [dictionary[@"retweeted"] boolValue];
     }
     
     return self;
+}
+
+- (NSDate *)dateFromTwitterString:(NSString *)twitterDateString {
+    NSDateFormatter *df = [[NSDateFormatter alloc] init];
+    // example twitterDateString: "Tue Aug 28 21:16:23 +0000 2012"
+    // patterns: http://www.unicode.org/reports/tr35/tr35-31/tr35-dates.html#Date_Format_Patterns
+    [df setDateFormat:@"EEE MMM dd hh:mm:ss Z yyyy"];
+    return [df dateFromString: twitterDateString];
+}
+
+- (void)setIsFavorite:(BOOL)isFavorite {
+    if (_isFavorite == isFavorite) {
+        return;
+    }
+    
+    _isFavorite = isFavorite;
+    self.favoriteCount += isFavorite ? 1 : -1;
+}
+
+- (void)setIsRetweeted:(BOOL)isRetweeted {
+    if (_isRetweeted == isRetweeted) {
+        return;
+    }
+    
+    _isRetweeted = isRetweeted;
+    self.retweetCount += isRetweeted ? 1 : -1;
 }
 
 @end

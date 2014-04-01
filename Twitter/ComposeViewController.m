@@ -43,6 +43,10 @@
     self.screenNameLabel.text = [@"@" stringByAppendingString:[User currentUser].screenName];
     [self.profileImage setImageWithURL:[NSURL URLWithString:[User currentUser].profileImageURL]];
     
+    if (self.inReplyToTweet != nil) {
+        self.tweetTextView.text = [NSString stringWithFormat:@"@%@ ", self.inReplyToTweet.userScreenName];
+    }
+    
     self.automaticallyAdjustsScrollViewInsets = NO;
 }
 
@@ -50,12 +54,28 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
+- (void)dismissWithCallback {
+    if (self.tweetWasComposed) {
+        self.tweetWasComposed();
+    }
+    
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
 - (void)onTweetClick {
-    [[TwitterAPIClient sharedInstance] tweet:self.tweetTextView.text WithSuccess:^{
-        [self dismissViewControllerAnimated:YES completion:nil];
-    } failure:^(NSError *error) {
-        NSLog(@"Error posting tweet: %@", [error localizedDescription]);
-    }];
+    if (self.inReplyToTweet != nil) {
+        [[TwitterAPIClient sharedInstance] tweet:self.tweetTextView.text inReplyTo:self.inReplyToTweet withSuccess:^{
+            [self dismissWithCallback];
+        } failure:^(NSError *error) {
+            NSLog(@"Error replying to tweet: %@", [error localizedDescription]);
+        }];
+    } else {
+        [[TwitterAPIClient sharedInstance] tweet:self.tweetTextView.text withSuccess:^{
+            [self dismissWithCallback];
+        } failure:^(NSError *error) {
+            NSLog(@"Error posting tweet: %@", [error localizedDescription]);
+        }];
+    }
 }
 
 - (void)didReceiveMemoryWarning

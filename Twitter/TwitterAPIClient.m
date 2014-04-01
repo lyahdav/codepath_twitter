@@ -7,7 +7,6 @@
 //
 
 #import "TwitterAPIClient.h"
-#import "Tweet.h"
 #import "NSURL+dictionaryFromQueryString.h"
 
 static TwitterAPIClient *sharedInstance = nil;
@@ -49,13 +48,63 @@ typedef void (^loginSuccessBlockType) ();
     }];
 }
 
-- (void)tweet:(NSString *)tweet WithSuccess:(void (^)())success
-                                            failure:(void (^)(NSError *error))failure {
-    [self POST:@"1.1/statuses/update.json" parameters:@{@"status" : tweet} success:^(AFHTTPRequestOperation *operation, id responseObject) {
+- (void)tweet:(NSString *)tweetText withSuccess:(void (^)())success
+      failure:(void (^)(NSError *error))failure {
+    [self POST:@"1.1/statuses/update.json" parameters:@{@"status" : tweetText} success:^(AFHTTPRequestOperation *operation, id responseObject) {
         success();
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         failure(error);
     }];
+}
+
+- (void)tweet:(NSString *)tweetText inReplyTo:(Tweet *)inReplyToTweet withSuccess:(void (^)())success
+      failure:(void (^)(NSError *error))failure {
+    [self POST:@"1.1/statuses/update.json" parameters:@{@"status" : tweetText, @"in_reply_to_status_id" : @(inReplyToTweet.tweetID)} success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        success();
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        failure(error);
+    }];
+}
+
+- (void)reTweet:(Tweet *)tweet withSuccess:(void (^)())success
+      failure:(void (^)(NSError *error))failure {
+    NSString *url = [NSString stringWithFormat:@"1.1/statuses/retweet/%ld.json", tweet.tweetID];
+    [self POST:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        if (success) {
+            success();
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        if (failure) {
+            failure(error);
+        }
+    }];
+}
+
+- (void)favorite:(Tweet *)tweet withSuccess:(void (^)())success
+         failure:(void (^)(NSError *error))failure {
+    [self POST:@"1.1/favorites/create.json" parameters:@{@"id" : @(tweet.tweetID)} success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        if (success) {
+            success();
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        if (failure) {
+            failure(error);
+        }
+    }];
+}
+
+- (void)unFavorite:(Tweet *)tweet withSuccess:(void (^)())success
+           failure:(void (^)(NSError *error))failure {
+    [self POST:@"1.1/favorites/destroy.json" parameters:@{@"id" : @(tweet.tweetID)} success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        if (success) {
+            success();
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        if (failure) {
+            failure(error);
+        }
+    }];
+    
 }
 
 - (void)loginWithSuccess:(loginSuccessBlockType)loginSuccessBlock {
@@ -65,7 +114,6 @@ typedef void (^loginSuccessBlockType) ();
     }
 
     self.loginSuccessBlock = loginSuccessBlock;
-//    [self deauthorize]; // TODO when needed?
     [self fetchRequestTokenWithPath:@"oauth/request_token" method:@"POST" callbackURL:[NSURL URLWithString:self.callbackURL] scope:nil success:^(BDBOAuthToken *requestToken) {
         NSString *authURL = [kBaseURL stringByAppendingFormat:@"/oauth/authorize?oauth_token=%@", requestToken.token];
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:authURL]];

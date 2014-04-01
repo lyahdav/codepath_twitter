@@ -1,10 +1,16 @@
 #import "TweetCell.h"
 #import "UIImageView+AFNetworking.h"
+#import "MHPrettyDate.h"
 
 @interface TweetCell ()
+
 @property (weak, nonatomic) IBOutlet UIImageView *userImage;
 @property (weak, nonatomic) IBOutlet UILabel *userNameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *tweetTextLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *retweetImage;
+@property (weak, nonatomic) IBOutlet UILabel *retweetUserNameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *screenNameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *relativeTimeLabel;
 
 @end
 
@@ -26,7 +32,9 @@
     _tweet = tweet;
     
     self.userNameLabel.text = tweet.userName;
+    self.screenNameLabel.text = [@"@" stringByAppendingString:tweet.userScreenName];
     self.tweetTextLabel.text = tweet.text;
+    self.relativeTimeLabel.text = [MHPrettyDate prettyDateFromDate:tweet.createdAt withFormat:MHPrettyDateShortRelativeTime];
     [self.userImage setImageWithURL:[NSURL URLWithString:tweet.userProfileImageURL]];
 }
 
