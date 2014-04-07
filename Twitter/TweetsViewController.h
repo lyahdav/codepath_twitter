@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "EmbeddedViewController.h"
 
-@interface TweetsViewController : UIViewController <UITableViewDataSource>
+@interface TweetsViewController : EmbeddedViewController <UITableViewDataSource>
+
+@property (nonatomic, assign) BOOL isMentionsTimeline;
 
 @end

@@ -39,12 +39,19 @@ typedef void (^loginSuccessBlockType) ();
 }
 
 
-- (void)homeTimelineWithSuccess:(void (^)(NSArray *tweets))success
-                                            failure:(void (^)(NSError *error))failure {
+- (void)homeTimelineWithSuccess:(void (^)(NSArray *tweets))success {
     [self GET:@"1.1/statuses/home_timeline.json" parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         success([Tweet tweetsFromJSONArray:responseObject]);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        failure(error);
+        NSLog(@"Error getting home timeline: %@", [error localizedDescription]);
+    }];
+}
+
+- (void)mentionsTimelineWithSuccess:(void (^)(NSArray *tweets))success {
+    [self GET:@"1.1/statuses/mentions_timeline.json" parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        success([Tweet tweetsFromJSONArray:responseObject]);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Error getting mentions timeline: %@", [error localizedDescription]);
     }];
 }
 
@@ -142,6 +149,15 @@ typedef void (^loginSuccessBlockType) ();
         success(currentUser);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         failure(error);
+    }];
+}
+
+- (void)userByScreenName:(NSString *)screenName withSuccess:(void (^)(User *user))success {
+    [self GET:@"1.1/users/show.json" parameters:@{@"screen_name" : screenName} success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        User *user = [[User alloc] initWithDictionary:responseObject];
+        success(user);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Error fetching user: %@", [error localizedDescription]);
     }];
 }
 

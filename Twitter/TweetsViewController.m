@@ -11,6 +11,7 @@
 #import "TweetCell.h"
 #import "ComposeViewController.h"
 #import "TweetViewController.h"
+#import "ProfileViewController.h"
 
 @interface TweetsViewController ()
 
@@ -35,11 +36,10 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.title = @"Home";
+    self.title = self.isMentionsTimeline ? @"Mentions" : @"Home";
 
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Sign Out" style:UIBarButtonItemStyleBordered target:self action:@selector(onSignOutTap)];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"New" style:UIBarButtonItemStyleBordered target:self action:@selector(onNewTap)];
-
+    
     UINib *tweetCell = [UINib nibWithNibName:@"TweetCell" bundle:nil];
     [self.tableView registerNib:tweetCell forCellReuseIdentifier:@"TweetCell"];
 
@@ -48,21 +48,30 @@
     self.refreshControl = [[UIRefreshControl alloc] init];
     [self.refreshControl addTarget:self action:@selector(loadTweets) forControlEvents:UIControlEventValueChanged];
     [self.tableView addSubview:self.refreshControl];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onShowUserProfileNotification:) name:@"showUserProfile" object:nil];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"poppingVC" object:self];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"pushingVC" object:self];
 }
 
 - (void)loadTweets {
-    [[TwitterAPIClient sharedInstance] homeTimelineWithSuccess:^(NSArray *tweets) {
+    void (^onSuccess)(NSArray *) = ^(NSArray *tweets) {
         self.tweets = [tweets mutableCopy];
         [self.tableView reloadData];
         [self.refreshControl endRefreshing];
-    } failure:^(NSError *error) {
-        NSLog(@"Error getting timeline: %@", [error localizedDescription]);
-    }];
-}
-
-- (void)onSignOutTap {
-    [[TwitterAPIClient sharedInstance] deauthorize];
-    [self dismissViewControllerAnimated:YES completion:nil];
+    };
+    
+    if (self.isMentionsTimeline) {
+        [[TwitterAPIClient sharedInstance] mentionsTimelineWithSuccess:onSuccess];
+    } else {
+        [[TwitterAPIClient sharedInstance] homeTimelineWithSuccess:onSuccess];
+    }
 }
 
 - (void)onNewTap {
@@ -71,6 +80,14 @@
         [self loadTweets];
     };
     [self.navigationController presentViewController:[[UINavigationController alloc] initWithRootViewController:vc] animated:YES completion:nil];
+}
+
+- (void)onShowUserProfileNotification:(NSNotification *)notification {
+    User *user = notification.userInfo[@"user"];
+    ProfileViewController *vc = [[ProfileViewController alloc] init];
+    vc.skipEmbed = YES;
+    vc.user = user;
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void)didReceiveMemoryWarning
@@ -95,6 +112,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     TweetViewController *vc = [[TweetViewController alloc] init];
     vc.tweet = self.tweets[indexPath.row];
+    
     [self.navigationController pushViewController:vc animated:YES];
 
     [tableView deselectRowAtIndexPath:indexPath animated:NO];

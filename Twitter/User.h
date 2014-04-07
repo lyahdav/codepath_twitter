@@ -18,5 +18,9 @@
 @property (nonatomic, strong) NSString *screenName;
 @property (nonatomic, strong) NSString *name;
 @property (nonatomic, strong) NSString *profileImageURL;
+@property (nonatomic, strong) NSString *profileBGImageURL;
+@property (nonatomic, assign) NSInteger statusesCount;
+@property (nonatomic, assign) NSInteger followersCount;
+@property (nonatomic, assign) NSInteger friendsCount;
 
 @end

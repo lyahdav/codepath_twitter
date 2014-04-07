@@ -32,6 +32,10 @@ static User *currentUser = nil;
         self.screenName = dictionary[@"screen_name"];
         self.name = dictionary[@"name"];
         self.profileImageURL = dictionary[@"profile_image_url"];
+        self.profileBGImageURL = dictionary[@"profile_background_image_url"];
+        self.statusesCount = [dictionary[@"statuses_count"] integerValue];
+        self.followersCount = [dictionary[@"followers_count"] integerValue];
+        self.friendsCount = [dictionary[@"friends_count"] integerValue];
     }
     return self;
 }

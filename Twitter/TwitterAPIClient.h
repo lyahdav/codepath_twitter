@@ -16,8 +16,8 @@
 + (instancetype)sharedInstance;
 + (instancetype)sharedInstanceWithAPIKey:(NSString *)apiKey APISecret:(NSString *)apiSecret callbackURL:(NSString *)callbackURL;
 
-- (void)homeTimelineWithSuccess:(void (^)(NSArray *tweets))success
-                                            failure:(void (^)(NSError *error))failure;
+- (void)homeTimelineWithSuccess:(void (^)(NSArray *tweets))success;
+- (void)mentionsTimelineWithSuccess:(void (^)(NSArray *tweets))success;
 - (void)tweet:(NSString *)tweetText withSuccess:(void (^)())success
       failure:(void (^)(NSError *error))failure;
 - (void)tweet:(NSString *)tweetText inReplyTo:(Tweet *)inReplyToTweet withSuccess:(void (^)())success
@@ -32,5 +32,6 @@
 - (void)applicationDidOpenOAuthURL:(NSURL *)url;
 - (void)currentUserWithSuccess:(void (^)(User *currentUser))success
                        failure:(void (^)(NSError *error))failure;
+- (void)userByScreenName:(NSString *)screenName withSuccess:(void (^)(User *user))success;
 
 @end

@@ -8,7 +8,7 @@
 
 #import "LoginViewController.h"
 #import "TwitterAPIClient.h"
-#import "TweetsViewController.h"
+#import "SidebarContainerViewController.h"
 #import "User.h"
 
 @interface LoginViewController ()
@@ -61,9 +61,8 @@
 }
 
 - (void)showTweetsVC {
-    TweetsViewController *vc = [[TweetsViewController alloc] init];
-    UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:vc];
-    [self presentViewController:nc animated:YES completion:nil];
+    SidebarContainerViewController *vc = [[SidebarContainerViewController alloc] init];
+    [self presentViewController:vc animated:YES completion:nil];
 }
 
 #pragma mark - UICollectionViewDataSource

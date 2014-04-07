@@ -13,9 +13,10 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="132"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="rup-Gm-YQx">
+                    <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="rup-Gm-YQx">
                         <rect key="frame" x="10" y="25" width="40" height="40"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <gestureRecognizers/>
                         <constraints>
                             <constraint firstAttribute="height" constant="40" id="O5j-5H-QBc"/>
                             <constraint firstAttribute="width" constant="40" id="rpj-ah-9e2"/>
@@ -80,6 +81,7 @@
                     <constraint firstItem="saG-tv-rgH" firstAttribute="baseline" secondItem="6gn-zg-YWx" secondAttribute="baseline" id="yvm-3R-KFI"/>
                 </constraints>
             </tableViewCellContentView>
+            <gestureRecognizers/>
             <connections>
                 <outlet property="relativeTimeLabel" destination="ivV-Tz-Wrw" id="X52-A1-z1M"/>
                 <outlet property="retweetImage" destination="8Qk-kX-GrR" id="8ck-xY-vTf"/>

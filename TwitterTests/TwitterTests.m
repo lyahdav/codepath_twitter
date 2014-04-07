@@ -7,6 +7,13 @@
 //
 
 #import <XCTest/XCTest.h>
+#import "Tweet.h"
+
+@interface Tweet (PrivateMethodsExposedForTest)
+
+- (NSDate *)dateFromTwitterString:(NSString *)twitterDateString;
+
+@end
 
 @interface TwitterTests : XCTestCase
 
@@ -26,9 +33,11 @@
     [super tearDown];
 }
 
-- (void)testExample
+- (void)testDateFromTwitterString
 {
-    XCTFail(@"No implementation for \"%s\"", __PRETTY_FUNCTION__);
+    Tweet *tweet = [[Tweet alloc] init];
+    XCTAssertNotNil([tweet dateFromTwitterString:@"Tue Aug 28 21:16:23 +0000 2012"]);
+    XCTAssertNotNil([tweet dateFromTwitterString:@"Sun Apr 06 21:45:51 +0000 2014"]);
 }
 
 @end

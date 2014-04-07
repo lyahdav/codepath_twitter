@@ -41,10 +41,12 @@
 
 - (NSDate *)dateFromTwitterString:(NSString *)twitterDateString {
     NSDateFormatter *df = [[NSDateFormatter alloc] init];
-    // example twitterDateString: "Tue Aug 28 21:16:23 +0000 2012"
+    // example twitterDateStrings:
+    // Tue Aug 28 21:16:23 +0000 2012
+    // Sun Apr 06 21:45:51 +0000 2014
     // patterns: http://www.unicode.org/reports/tr35/tr35-31/tr35-dates.html#Date_Format_Patterns
-    [df setDateFormat:@"EEE MMM dd hh:mm:ss Z yyyy"];
-    return [df dateFromString: twitterDateString];
+    [df setDateFormat:@"eee MMM dd HH:mm:ss Z yyyy"];
+    return [df dateFromString:twitterDateString];
 }
 
 - (void)setIsFavorite:(BOOL)isFavorite {

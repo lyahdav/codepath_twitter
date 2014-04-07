@@ -8,6 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		53F104E0DE47473D9F148F92 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B36CFA9678AF4CDC99C675F0 /* libPods.a */; };
+		FEAAF74918F219E6009DA045 /* SidebarContainerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FEAAF74718F219E6009DA045 /* SidebarContainerViewController.m */; };
+		FEAAF74A18F219E6009DA045 /* SidebarContainerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FEAAF74818F219E6009DA045 /* SidebarContainerViewController.xib */; };
+		FEAAF75318F23459009DA045 /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FEAAF75118F23459009DA045 /* ProfileViewController.m */; };
+		FEAAF75418F23459009DA045 /* ProfileViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FEAAF75218F23459009DA045 /* ProfileViewController.xib */; };
+		FEAAF75A18F24539009DA045 /* EmbeddedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FEAAF75918F24539009DA045 /* EmbeddedViewController.m */; };
+		FEAAF75E18F27E78009DA045 /* SidebarProfileCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FEAAF75C18F27E78009DA045 /* SidebarProfileCell.m */; };
+		FEAAF75F18F27E78009DA045 /* SidebarProfileCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FEAAF75D18F27E78009DA045 /* SidebarProfileCell.xib */; };
 		FEBE1B4518E906CB004853C0 /* NSURL+dictionaryFromQueryString.m in Sources */ = {isa = PBXBuildFile; fileRef = FEBE1B4418E906CB004853C0 /* NSURL+dictionaryFromQueryString.m */; };
 		FEBE1B4918E90EDF004853C0 /* TweetsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FEBE1B4718E90EDF004853C0 /* TweetsViewController.m */; };
 		FEBE1B4A18E90EDF004853C0 /* TweetsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FEBE1B4818E90EDF004853C0 /* TweetsViewController.xib */; };
@@ -49,6 +56,18 @@
 /* Begin PBXFileReference section */
 		B36CFA9678AF4CDC99C675F0 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		C8AA38C881CE486FA805B308 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
+		FEAAF74618F219E6009DA045 /* SidebarContainerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SidebarContainerViewController.h; sourceTree = "<group>"; };
+		FEAAF74718F219E6009DA045 /* SidebarContainerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SidebarContainerViewController.m; sourceTree = "<group>"; };
+		FEAAF74818F219E6009DA045 /* SidebarContainerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SidebarContainerViewController.xib; sourceTree = "<group>"; };
+		FEAAF75018F23459009DA045 /* ProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileViewController.h; sourceTree = "<group>"; };
+		FEAAF75118F23459009DA045 /* ProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileViewController.m; sourceTree = "<group>"; };
+		FEAAF75218F23459009DA045 /* ProfileViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProfileViewController.xib; sourceTree = "<group>"; };
+		FEAAF75518F23C46009DA045 /* SidebarDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SidebarDelegate.h; sourceTree = "<group>"; };
+		FEAAF75818F24539009DA045 /* EmbeddedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmbeddedViewController.h; sourceTree = "<group>"; };
+		FEAAF75918F24539009DA045 /* EmbeddedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmbeddedViewController.m; sourceTree = "<group>"; };
+		FEAAF75B18F27E78009DA045 /* SidebarProfileCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SidebarProfileCell.h; sourceTree = "<group>"; };
+		FEAAF75C18F27E78009DA045 /* SidebarProfileCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SidebarProfileCell.m; sourceTree = "<group>"; };
+		FEAAF75D18F27E78009DA045 /* SidebarProfileCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SidebarProfileCell.xib; sourceTree = "<group>"; };
 		FEBE1B4318E906CB004853C0 /* NSURL+dictionaryFromQueryString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURL+dictionaryFromQueryString.h"; sourceTree = "<group>"; };
 		FEBE1B4418E906CB004853C0 /* NSURL+dictionaryFromQueryString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURL+dictionaryFromQueryString.m"; sourceTree = "<group>"; };
 		FEBE1B4618E90EDF004853C0 /* TweetsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TweetsViewController.h; sourceTree = "<group>"; };
@@ -130,6 +149,9 @@
 				FEBE1B4F18E920C2004853C0 /* TweetCell.h */,
 				FEBE1B5018E920C2004853C0 /* TweetCell.m */,
 				FEBE1B5118E920C2004853C0 /* TweetCell.xib */,
+				FEAAF75B18F27E78009DA045 /* SidebarProfileCell.h */,
+				FEAAF75C18F27E78009DA045 /* SidebarProfileCell.m */,
+				FEAAF75D18F27E78009DA045 /* SidebarProfileCell.xib */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -246,6 +268,15 @@
 				FEBE1B5918E9450C004853C0 /* TweetViewController.h */,
 				FEBE1B5A18E9450C004853C0 /* TweetViewController.m */,
 				FEBE1B5B18E9450C004853C0 /* TweetViewController.xib */,
+				FEAAF74618F219E6009DA045 /* SidebarContainerViewController.h */,
+				FEAAF74718F219E6009DA045 /* SidebarContainerViewController.m */,
+				FEAAF74818F219E6009DA045 /* SidebarContainerViewController.xib */,
+				FEAAF75018F23459009DA045 /* ProfileViewController.h */,
+				FEAAF75118F23459009DA045 /* ProfileViewController.m */,
+				FEAAF75218F23459009DA045 /* ProfileViewController.xib */,
+				FEAAF75518F23C46009DA045 /* SidebarDelegate.h */,
+				FEAAF75818F24539009DA045 /* EmbeddedViewController.h */,
+				FEAAF75918F24539009DA045 /* EmbeddedViewController.m */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -330,9 +361,12 @@
 				FEBE1B4A18E90EDF004853C0 /* TweetsViewController.xib in Resources */,
 				FEBE1B5D18E9450C004853C0 /* TweetViewController.xib in Resources */,
 				FEBE1B5818E932CE004853C0 /* ComposeViewController.xib in Resources */,
+				FEAAF74A18F219E6009DA045 /* SidebarContainerViewController.xib in Resources */,
 				FEF3E86918E8EE5400CB3812 /* InfoPlist.strings in Resources */,
 				FEF3E87118E8EE5400CB3812 /* Images.xcassets in Resources */,
 				FEBE1B5318E920C2004853C0 /* TweetCell.xib in Resources */,
+				FEAAF75418F23459009DA045 /* ProfileViewController.xib in Resources */,
+				FEAAF75F18F27E78009DA045 /* SidebarProfileCell.xib in Resources */,
 				FEF3E89A18E8F74800CB3812 /* LoginViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -387,11 +421,15 @@
 			files = (
 				FEBE1B4D18E90F15004853C0 /* User.m in Sources */,
 				FEF3E86F18E8EE5400CB3812 /* AppDelegate.m in Sources */,
+				FEAAF74918F219E6009DA045 /* SidebarContainerViewController.m in Sources */,
+				FEAAF75A18F24539009DA045 /* EmbeddedViewController.m in Sources */,
+				FEAAF75318F23459009DA045 /* ProfileViewController.m in Sources */,
 				FEBE1B5218E920C2004853C0 /* TweetCell.m in Sources */,
 				FEBE1B5718E932CE004853C0 /* ComposeViewController.m in Sources */,
 				FEF3E88F18E8EEF600CB3812 /* TwitterAPIClient.m in Sources */,
 				FEBE1B5C18E9450C004853C0 /* TweetViewController.m in Sources */,
 				FEF3E86B18E8EE5400CB3812 /* main.m in Sources */,
+				FEAAF75E18F27E78009DA045 /* SidebarProfileCell.m in Sources */,
 				FEF3E89318E8F2DB00CB3812 /* Tweet.m in Sources */,
 				FEBE1B4518E906CB004853C0 /* NSURL+dictionaryFromQueryString.m in Sources */,
 				FEF3E89918E8F74800CB3812 /* LoginViewController.m in Sources */,

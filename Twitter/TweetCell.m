@@ -1,6 +1,7 @@
 #import "TweetCell.h"
 #import "UIImageView+AFNetworking.h"
 #import "MHPrettyDate.h"
+#import "TwitterAPIClient.h"
 
 @interface TweetCell ()
 
@@ -36,6 +37,9 @@
     self.tweetTextLabel.text = tweet.text;
     self.relativeTimeLabel.text = [MHPrettyDate prettyDateFromDate:tweet.createdAt withFormat:MHPrettyDateShortRelativeTime];
     [self.userImage setImageWithURL:[NSURL URLWithString:tweet.userProfileImageURL]];
+    
+    UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onUserImageTap:)];
+    [self.userImage addGestureRecognizer:tapGestureRecognizer];
 }
 
 - (CGFloat)heightForTweet:(Tweet *)tweet {
@@ -46,6 +50,12 @@
     CGFloat originalTweetTextLabelHeight = self.tweetTextLabel.frame.size.height;
     CGFloat height = self.frame.size.height - originalTweetTextLabelHeight + newTweetTextLabelHeight;
     return height;
+}
+
+- (void)onUserImageTap:(id)sender {
+    [[TwitterAPIClient sharedInstance] userByScreenName:self.tweet.userScreenName withSuccess:^(User *user) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"showUserProfile" object:self userInfo:@{@"user" : user}];
+    }];
 }
 
 @end
