@@ -8,7 +8,7 @@
             <connections>
                 <outlet property="contentView" destination="RX0-3p-rFX" id="7Gv-v2-LfR"/>
                 <outlet property="contentViewHorizontalSpaceConstraint" destination="nWi-1P-Hgo" id="yUr-RQ-idb"/>
-                <outlet property="contentViewTapGestureRecognizer" destination="G4f-h3-daz" id="PRB-fi-Esb"/>
+                <outlet property="hiddenView" destination="wOz-gE-VCY" id="KaW-S3-fYn"/>
                 <outlet property="sidebarTableView" destination="vhw-8y-RW6" id="HTm-eu-CBJ"/>
                 <outlet property="sidebarView" destination="4yg-Gi-Sd8" id="zwU-r6-pmz"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -46,14 +46,25 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RX0-3p-rFX" userLabel="contentView">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    <subviews>
+                        <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wOz-gE-VCY" userLabel="hiddenView">
+                            <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <gestureRecognizers/>
+                            <connections>
+                                <outletCollection property="gestureRecognizers" destination="G4f-h3-daz" appends="YES" id="c41-Ar-ojS"/>
+                            </connections>
+                        </view>
+                    </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     <gestureRecognizers/>
                     <constraints>
+                        <constraint firstItem="wOz-gE-VCY" firstAttribute="top" secondItem="RX0-3p-rFX" secondAttribute="top" id="Kln-tU-cyF"/>
+                        <constraint firstItem="wOz-gE-VCY" firstAttribute="leading" secondItem="RX0-3p-rFX" secondAttribute="leading" id="mjx-iJ-FpI"/>
+                        <constraint firstAttribute="bottom" secondItem="wOz-gE-VCY" secondAttribute="bottom" id="trT-dO-ooh"/>
+                        <constraint firstAttribute="trailing" secondItem="wOz-gE-VCY" secondAttribute="trailing" id="y4g-ay-vI5"/>
                         <constraint firstAttribute="width" constant="320" id="zmD-On-rTL"/>
                     </constraints>
-                    <connections>
-                        <outletCollection property="gestureRecognizers" destination="G4f-h3-daz" appends="YES" id="9dJ-Qq-Y4z"/>
-                    </connections>
                 </view>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -68,9 +79,9 @@
             <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
         </view>
-        <tapGestureRecognizer id="G4f-h3-daz" userLabel="contentViewTapGestureRecognizer">
+        <tapGestureRecognizer id="G4f-h3-daz" userLabel="hiddenViewTapGestureRecognizer">
             <connections>
-                <action selector="onContentViewTap:" destination="-1" id="KDP-Ym-g4b"/>
+                <action selector="onHiddenViewTap:" destination="-1" id="PP9-uT-hSX"/>
             </connections>
         </tapGestureRecognizer>
     </objects>

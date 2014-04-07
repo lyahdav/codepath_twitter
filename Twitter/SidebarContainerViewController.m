@@ -24,8 +24,8 @@ const CGFloat kMaxSidebarWidth = 320.0 - kMinContainerWidth;
 @property (weak, nonatomic) IBOutlet UIView *contentView;
 @property (weak, nonatomic) IBOutlet UIView *sidebarView;
 @property (weak, nonatomic) IBOutlet UITableView *sidebarTableView;
-@property (strong, nonatomic) IBOutlet UITapGestureRecognizer *contentViewTapGestureRecognizer;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *contentViewHorizontalSpaceConstraint;
+@property (weak, nonatomic) IBOutlet UIView *hiddenView;
 @property (nonatomic, strong) EmbeddedViewController *contentViewController;
 @property (nonatomic, assign) CGPoint panStartPoint;
 @property (nonatomic, strong) UIPanGestureRecognizer *panGestureRecognizer;
@@ -54,8 +54,6 @@ const CGFloat kMaxSidebarWidth = 320.0 - kMinContainerWidth;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onPushingVCNotification:) name:@"pushingVC" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onPoppingVCNotification:) name:@"poppingVC" object:nil];
     
-    self.contentViewTapGestureRecognizer.enabled = NO;
-    
     [self.sidebarTableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"item"];
     UINib *sidebarProfileCell = [UINib nibWithNibName:@"SidebarProfileCell" bundle:nil];
     [self.sidebarTableView registerNib:sidebarProfileCell forCellReuseIdentifier:@"SidebarProfileCell"];
@@ -74,7 +72,7 @@ const CGFloat kMaxSidebarWidth = 320.0 - kMinContainerWidth;
         self.contentViewHorizontalSpaceConstraint.constant = 0.0;
         [self.view layoutIfNeeded];
     } completion:^(BOOL finished) {
-        self.contentViewTapGestureRecognizer.enabled = NO;
+        self.hiddenView.hidden = YES;
         self.sidebarVisible = NO;
     }];
 }
@@ -84,7 +82,7 @@ const CGFloat kMaxSidebarWidth = 320.0 - kMinContainerWidth;
         self.contentViewHorizontalSpaceConstraint.constant = kMaxSidebarWidth;
         [self.view layoutIfNeeded];
     } completion:^(BOOL finished) {
-        self.contentViewTapGestureRecognizer.enabled = YES;
+        self.hiddenView.hidden = NO;
         self.sidebarVisible = YES;
     }];
 }
@@ -110,7 +108,7 @@ const CGFloat kMaxSidebarWidth = 320.0 - kMinContainerWidth;
     }
 }
 
-- (IBAction)onContentViewTap:(id)sender {
+- (IBAction)onHiddenViewTap:(id)sender {
     [self hideSidebarAnimated];
 }
 
@@ -121,12 +119,15 @@ const CGFloat kMaxSidebarWidth = 320.0 - kMinContainerWidth;
 }
 
 - (void)setContentViewController:(EmbeddedViewController *)contentViewController {
+    [_contentViewController.navigationController removeFromParentViewController];
+    [_contentViewController.navigationController.view removeFromSuperview];
+
     _contentViewController = contentViewController;
 
     contentViewController.sidebarDelegate = self;
     UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:contentViewController];
     [self addChildViewController:nc];
-    [self.contentView addSubview:nc.view];
+    [self.contentView insertSubview:nc.view belowSubview:self.hiddenView];
     [nc didMoveToParentViewController:self];
 }
 
