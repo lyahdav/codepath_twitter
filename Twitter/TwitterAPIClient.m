@@ -55,6 +55,14 @@ typedef void (^loginSuccessBlockType) ();
     }];
 }
 
+- (void)userTimelineByScreenName:(NSString *)screenName withSuccess:(void (^)(NSArray *tweets))success {
+    [self GET:@"1.1/statuses/user_timeline.json" parameters:@{@"screen_name" : screenName} success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        success([Tweet tweetsFromJSONArray:responseObject]);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Error getting user timeline: %@", [error localizedDescription]);
+    }];
+}
+
 - (void)tweet:(NSString *)tweetText withSuccess:(void (^)())success
       failure:(void (^)(NSError *error))failure {
     [self POST:@"1.1/statuses/update.json" parameters:@{@"status" : tweetText} success:^(AFHTTPRequestOperation *operation, id responseObject) {

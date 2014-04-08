@@ -53,9 +53,7 @@
 }
 
 - (void)onUserImageTap:(id)sender {
-    [[TwitterAPIClient sharedInstance] userByScreenName:self.tweet.userScreenName withSuccess:^(User *user) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"showUserProfile" object:self userInfo:@{@"user" : user}];
-    }];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"showUserProfile" object:self userInfo:@{@"screenName" : self.tweet.userScreenName}];
 }
 
 @end

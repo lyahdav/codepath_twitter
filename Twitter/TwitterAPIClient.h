@@ -18,6 +18,7 @@
 
 - (void)homeTimelineWithSuccess:(void (^)(NSArray *tweets))success;
 - (void)mentionsTimelineWithSuccess:(void (^)(NSArray *tweets))success;
+- (void)userTimelineByScreenName:(NSString *)screenName withSuccess:(void (^)(NSArray *tweets))success;
 - (void)tweet:(NSString *)tweetText withSuccess:(void (^)())success
       failure:(void (^)(NSError *error))failure;
 - (void)tweet:(NSString *)tweetText inReplyTo:(Tweet *)inReplyToTweet withSuccess:(void (^)())success

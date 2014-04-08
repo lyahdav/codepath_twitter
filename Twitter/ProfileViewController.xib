@@ -11,6 +11,7 @@
                 <outlet property="profileBGImage" destination="lus-nX-vCh" id="izd-ia-0Oj"/>
                 <outlet property="profileImage" destination="AKA-Cb-YQX" id="UmI-MM-zGH"/>
                 <outlet property="tweetCountLabel" destination="bQ0-rn-ruZ" id="1fi-dC-iyx"/>
+                <outlet property="tweetsContainerView" destination="zOM-z2-Coy" id="jG9-V8-JRE"/>
                 <outlet property="userNameLabel" destination="fIh-lS-tOE" id="FDe-pB-vqk"/>
                 <outlet property="userScreenNameLabel" destination="EPL-OI-4M9" id="twM-lr-PSo"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -133,6 +134,11 @@
                         <constraint firstAttribute="centerX" secondItem="fIh-lS-tOE" secondAttribute="centerX" id="qe5-ML-yo9"/>
                     </constraints>
                 </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zOM-z2-Coy">
+                    <rect key="frame" x="0.0" y="289" width="320" height="279"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                </view>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
@@ -144,6 +150,7 @@
                 <constraint firstAttribute="trailing" secondItem="lus-nX-vCh" secondAttribute="trailing" id="F7R-d6-8Jf"/>
                 <constraint firstItem="OpS-83-BqK" firstAttribute="leading" secondItem="Yol-KF-He3" secondAttribute="trailing" constant="20" id="Ffh-de-YMM"/>
                 <constraint firstItem="lus-nX-vCh" firstAttribute="top" secondItem="AKA-Cb-YQX" secondAttribute="top" constant="-12" id="GPN-nf-cWg"/>
+                <constraint firstItem="zOM-z2-Coy" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="HH8-MM-LwX"/>
                 <constraint firstItem="OpS-83-BqK" firstAttribute="top" secondItem="bQ0-rn-ruZ" secondAttribute="top" id="JKI-KA-whD"/>
                 <constraint firstItem="bQ0-rn-ruZ" firstAttribute="leading" secondItem="2Nm-L3-Ylg" secondAttribute="leading" id="Jhl-sA-VhF"/>
                 <constraint firstItem="Yol-KF-He3" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="106" id="JrF-vn-fjd"/>
@@ -152,8 +159,10 @@
                 <constraint firstItem="z8S-8j-1ut" firstAttribute="top" secondItem="M3Y-wu-aDb" secondAttribute="top" id="RWJ-fQ-8jM"/>
                 <constraint firstItem="RAa-NN-GIs" firstAttribute="top" secondItem="lus-nX-vCh" secondAttribute="bottom" constant="44" id="Ujs-Nc-Jcg"/>
                 <constraint firstAttribute="centerX" secondItem="AKA-Cb-YQX" secondAttribute="centerX" id="VRr-Jb-i4k"/>
+                <constraint firstAttribute="bottom" secondItem="zOM-z2-Coy" secondAttribute="bottom" id="XQR-NW-gnb"/>
                 <constraint firstItem="1so-St-8yZ" firstAttribute="top" secondItem="OpS-83-BqK" secondAttribute="top" id="XkV-38-4WV"/>
                 <constraint firstItem="Yol-KF-He3" firstAttribute="top" secondItem="lus-nX-vCh" secondAttribute="bottom" id="ccW-r3-IRp"/>
+                <constraint firstAttribute="trailing" secondItem="zOM-z2-Coy" secondAttribute="trailing" id="dO9-6z-L0d"/>
                 <constraint firstItem="RAa-NN-GIs" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="e8u-Py-yfY"/>
                 <constraint firstItem="2Nm-L3-Ylg" firstAttribute="top" secondItem="bQ0-rn-ruZ" secondAttribute="bottom" constant="1" id="exy-54-5sy"/>
                 <constraint firstAttribute="trailing" secondItem="RAa-NN-GIs" secondAttribute="trailing" id="gmq-oD-22I"/>
@@ -162,6 +171,7 @@
                 <constraint firstItem="lus-nX-vCh" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="kzB-Wo-pF8"/>
                 <constraint firstAttribute="centerX" secondItem="5sm-yH-S1b" secondAttribute="centerX" id="q4P-TX-5R5"/>
                 <constraint firstItem="M3Y-wu-aDb" firstAttribute="top" secondItem="2Nm-L3-Ylg" secondAttribute="top" id="usD-QI-orP"/>
+                <constraint firstItem="zOM-z2-Coy" firstAttribute="top" secondItem="RAa-NN-GIs" secondAttribute="bottom" id="wfc-Js-2lG"/>
             </constraints>
             <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>

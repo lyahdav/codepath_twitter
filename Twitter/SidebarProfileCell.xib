@@ -30,7 +30,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Screen name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QXO-Jm-Qsf">
-                        <rect key="frame" x="99" y="11" width="74" height="15"/>
+                        <rect key="frame" x="60" y="28" width="74" height="15"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
@@ -38,9 +38,9 @@
                     </label>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="oEu-tJ-gIi" firstAttribute="baseline" secondItem="QXO-Jm-Qsf" secondAttribute="baseline" id="CSR-LL-v36"/>
                     <constraint firstItem="t3O-tw-4xZ" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="LOx-59-2Gs"/>
-                    <constraint firstItem="QXO-Jm-Qsf" firstAttribute="leading" secondItem="oEu-tJ-gIi" secondAttribute="trailing" constant="10" id="UT0-ZD-rLM"/>
+                    <constraint firstItem="QXO-Jm-Qsf" firstAttribute="top" secondItem="oEu-tJ-gIi" secondAttribute="bottom" constant="2" id="Sg9-QM-foK"/>
+                    <constraint firstItem="QXO-Jm-Qsf" firstAttribute="leading" secondItem="oEu-tJ-gIi" secondAttribute="leading" id="WGe-b5-sjp"/>
                     <constraint firstItem="t3O-tw-4xZ" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="XMT-oy-d6P"/>
                     <constraint firstItem="oEu-tJ-gIi" firstAttribute="leading" secondItem="t3O-tw-4xZ" secondAttribute="trailing" constant="10" id="exf-Ev-xAG"/>
                     <constraint firstItem="t3O-tw-4xZ" firstAttribute="top" secondItem="oEu-tJ-gIi" secondAttribute="top" id="hib-7a-97G"/>

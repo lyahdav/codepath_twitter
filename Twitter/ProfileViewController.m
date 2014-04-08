@@ -8,6 +8,7 @@
 
 #import "ProfileViewController.h"
 #import "UIImageView+AFNetworking.h"
+#import "TweetsViewController.h"
 
 @interface ProfileViewController ()
 
@@ -18,6 +19,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *tweetCountLabel;
 @property (weak, nonatomic) IBOutlet UILabel *followingCountLabel;
 @property (weak, nonatomic) IBOutlet UILabel *followersCountLabel;
+@property (weak, nonatomic) IBOutlet UIView *tweetsContainerView;
 
 @end
 
@@ -45,6 +47,14 @@
     self.tweetCountLabel.text = [@(self.user.statusesCount) stringValue];
     self.followingCountLabel.text = [@(self.user.friendsCount) stringValue];
     self.followersCountLabel.text = [@(self.user.followersCount) stringValue];
+
+    TweetsViewController *tweetsVC = [[TweetsViewController alloc] init];
+    tweetsVC.timelineType = kUserTimeline;
+    tweetsVC.screenNameForUserTimeline = self.user.screenName;
+    tweetsVC.view.frame = CGRectMake(0, 0, self.tweetsContainerView.frame.size.width, self.tweetsContainerView.frame.size.height);
+    [self addChildViewController:tweetsVC];
+    [self.tweetsContainerView addSubview:tweetsVC.view];
+    [tweetsVC didMoveToParentViewController:self];
 }
 
 - (void)didReceiveMemoryWarning

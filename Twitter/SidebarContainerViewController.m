@@ -169,12 +169,15 @@ const CGFloat kMaxSidebarWidth = 320.0 - kMinContainerWidth;
             break;
         }
         case 1: { // home
-            self.contentViewController = [[TweetsViewController alloc] init];
+            TweetsViewController *vc = [[TweetsViewController alloc] init];
+            vc.timelineType = kHomeTimeline;
+            self.contentViewController = vc;
+            
             break;
         }
         case 2: { // mentions
             TweetsViewController *vc = [[TweetsViewController alloc] init];
-            vc.isMentionsTimeline = YES;
+            vc.timelineType = kMentionsTimeline;
             self.contentViewController = vc;
             break;
         }

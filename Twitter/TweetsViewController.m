@@ -19,6 +19,7 @@
 @property (nonatomic, strong) NSMutableArray *tweets;
 @property (nonatomic, strong) TweetCell *prototypeCell;
 @property (nonatomic, strong) UIRefreshControl *refreshControl;
+@property (nonatomic, assign) BOOL isRootViewController;
 
 @end
 
@@ -36,7 +37,16 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.title = self.isMentionsTimeline ? @"Mentions" : @"Home";
+    
+    switch (self.timelineType) {
+        case kHomeTimeline:
+            self.title = @"Home";
+            break;
+        case kMentionsTimeline:
+            self.title = @"Mentions";
+        default:
+            break;
+    }
 
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"New" style:UIBarButtonItemStyleBordered target:self action:@selector(onNewTap)];
     
@@ -54,12 +64,16 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"poppingVC" object:self];
+    if (self.isRootViewController) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"poppingVC" object:self];
+    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"pushingVC" object:self];
+    if (self.isRootViewController) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"pushingVC" object:self];
+    }
 }
 
 - (void)loadTweets {
@@ -69,10 +83,19 @@
         [self.refreshControl endRefreshing];
     };
     
-    if (self.isMentionsTimeline) {
-        [[TwitterAPIClient sharedInstance] mentionsTimelineWithSuccess:onSuccess];
-    } else {
-        [[TwitterAPIClient sharedInstance] homeTimelineWithSuccess:onSuccess];
+    switch (self.timelineType) {
+        case kHomeTimeline:
+            [[TwitterAPIClient sharedInstance] homeTimelineWithSuccess:onSuccess];
+            break;
+        case kMentionsTimeline:
+            [[TwitterAPIClient sharedInstance] mentionsTimelineWithSuccess:onSuccess];
+            break;
+        case kUserTimeline:
+            [[TwitterAPIClient sharedInstance] userTimelineByScreenName:self.screenNameForUserTimeline withSuccess:onSuccess];
+            break;
+            
+        default:
+            break;
     }
 }
 
@@ -85,17 +108,27 @@
 }
 
 - (void)onShowUserProfileNotification:(NSNotification *)notification {
-    User *user = notification.userInfo[@"user"];
-    ProfileViewController *vc = [[ProfileViewController alloc] init];
-    vc.skipEmbed = YES;
-    vc.user = user;
-    [self.navigationController pushViewController:vc animated:YES];
+    if (self.timelineType == kUserTimeline) {
+        return;
+    }
+    
+    NSString *screenName = notification.userInfo[@"screenName"];
+    [[TwitterAPIClient sharedInstance] userByScreenName:screenName withSuccess:^(User *user) {
+        ProfileViewController *vc = [[ProfileViewController alloc] init];
+        vc.skipEmbed = YES;
+        vc.user = user;
+        [self.navigationController pushViewController:vc animated:YES];
+    }];
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (BOOL)isRootViewController {
+    return (self.timelineType != kUserTimeline) || [self.screenNameForUserTimeline isEqualToString:[User currentUser].screenName];
 }
 
 #pragma mark - UITableViewDelegate
